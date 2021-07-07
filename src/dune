@@ -1,3 +1,9 @@
-(executable
+(library
   (name main)
-  (libraries unix))
+  (modules (:standard \ "denu"))
+  (libraries unix fpath))
+(executable
+  (name denu)
+  (modules ("denu"))
+  (promote (until-clean))
+  (libraries main))

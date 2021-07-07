@@ -1,0 +1,29 @@
+{
+  "checksum": "4c618de1e7ca8f663af8aa93936766b9",
+  "root": "denu@link-dev:./esy.json",
+  "node": {
+    "ocaml@4.12.0@d41d8cd9": {
+      "id": "ocaml@4.12.0@d41d8cd9",
+      "name": "ocaml",
+      "version": "4.12.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://registry.npmjs.org/ocaml/-/ocaml-4.12.0.tgz#sha1:2a979f37535faaded8aa3fdf82b6f16f2c71e284"
+        ]
+      },
+      "overrides": [],
+      "dependencies": [],
+      "devDependencies": []
+    },
+    "denu@link-dev:./esy.json": {
+      "id": "denu@link-dev:./esy.json",
+      "name": "denu",
+      "version": "link-dev:./esy.json",
+      "source": { "type": "link-dev", "path": ".", "manifest": "esy.json" },
+      "overrides": [],
+      "dependencies": [ "ocaml@4.12.0@d41d8cd9" ],
+      "devDependencies": []
+    }
+  }
+}

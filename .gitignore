@@ -4,3 +4,4 @@ _esy
 **.exe
 _opam
 _build
+.vscode

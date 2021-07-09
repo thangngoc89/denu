@@ -2,6 +2,11 @@ let verbose = ref false
 
 let exec = Utils.execute ~verbose:!verbose
 
+let print_build_order build_order =
+  if !verbose then
+    Printf.printf "Build order: %s\n" (String.concat " -> " build_order)
+  else ()
+
 let ext_none name = name |> String.trim |> Filename.remove_extension
 
 let ext_ensure ~ext name = Printf.sprintf "%s.%s" (ext_none name) ext
@@ -14,7 +19,8 @@ module Ocamldep = struct
      main.cmx : depend_on_main.cmx abc.cmx
   *)
 
-  let get_build_order () =
+  let get_build_order entry =
+    let entry = ext_none entry in
     let output = exec [ "ocamldep"; "-one-line"; "-native"; "*.ml" ] in
     let lines = String.split_on_char '\n' output in
     let graph =
@@ -33,7 +39,17 @@ module Ocamldep = struct
              in
              (file, depends) :: acc)
            [] in
-    List.rev (Graph.toposort graph)
+    let build_order = List.rev (Graph.toposort graph) in
+
+    let rec remove_unused_files acc tl =
+      match tl with
+      | [] -> acc
+      | file :: tl ->
+          if file = entry then file :: acc
+          else remove_unused_files (file :: acc) tl in
+    let final_build_order = List.rev (remove_unused_files [] build_order) in
+    print_build_order final_build_order;
+    final_build_order
 end
 
 let ocamlopt ~binary_out ~files =
@@ -48,7 +64,7 @@ let ocamlopt ~binary_out ~files =
   List.concat [ base; packages; files |> List.map (ext_ensure ~ext:"ml") ]
 
 let compile name =
-  let _ml_entry =
+  let entry =
     match Filename.extension name with
     | "" -> name ^ ".ml"
     | ".ml" -> name
@@ -62,7 +78,7 @@ let compile name =
     Sys.chdir (Filename.dirname absolute_entry_path) in
 
   let name = Filename.chop_extension name in
-  let build_order = Ocamldep.get_build_order () in
+  let build_order = Ocamldep.get_build_order entry in
   let _ =
     exec (ocamlopt ~binary_out:(ext_ensure ~ext:"exe" name) ~files:build_order)
   in

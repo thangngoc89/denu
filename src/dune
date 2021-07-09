@@ -4,6 +4,7 @@
   (libraries unix fpath))
 (executable
   (name denu)
+  (public_name denu)
   (modules ("denu"))
   (promote (until-clean))
   (libraries main))

@@ -1,5 +1,5 @@
 {
-  "checksum": "75de2cd2564b95e5fbf7b288b786d391",
+  "checksum": "b933ae9012b46cf0368304888ee497a5",
   "root": "denu@link-dev:./esy.json",
   "node": {
     "ocaml@4.12.0@d41d8cd9": {
@@ -27,7 +27,7 @@
         "@opam/dune@opam:2.9.0@489e77a9"
       ],
       "devDependencies": [
-        "@opam/utop@opam:2.8.0@76625c33", "@opam/re@opam:1.9.0@9373f267",
+        "@opam/utop@opam:2.8.0@76625c33",
         "@opam/ocamlformat@opam:0.18.0@4d3e0b0e",
         "@opam/ocaml-lsp-server@opam:1.7.0@2cdbe0ed"
       ]

@@ -7,7 +7,6 @@
   "devDependencies": {
     "@opam/ocaml-lsp-server": "1.7.0",
     "@opam/ocamlformat": "0.18.0",
-    "@opam/re": "1.9.0",
     "@opam/utop": "2.8.0"
   }
 }

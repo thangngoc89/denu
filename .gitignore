@@ -2,3 +2,5 @@ _esy
 **.cm*
 **.o
 **.exe
+_opam
+_build

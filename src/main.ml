@@ -39,7 +39,7 @@ end
 let ocamlopt ~binary_out ~files =
   List.concat
     [
-      [ "ocamlopt"; "-o"; binary_out ];
+      ["ocamlfind"; "ocamlopt"; "-o"; binary_out  ; "-linkpkg"; "-package"; "fpath,unix"];
       files |> List.map (fun file -> file ^ ".ml");
     ]
 
